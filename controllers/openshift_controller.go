@@ -128,6 +128,8 @@ func (r *KataConfigOpenShiftReconciler) newMCPforCR() *mcfgv1.MachineConfigPool 
 		nodeSelector = r.kataConfig.Spec.KataConfigPoolSelector
 	}
 
+	nodeSelector = metav1.AddLabelToSelector(nodeSelector, "feature.node.kubernetes.io/runtime.kata", "true")
+
 	mcp := &mcfgv1.MachineConfigPool{
 		TypeMeta: metav1.TypeMeta{
 			APIVersion: "machineconfiguration.openshift.io/v1",
